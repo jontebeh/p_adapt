@@ -13,4 +13,4 @@ def __main__():
         print(tx)
     
 __main__()
-#das projekt ist voll toll
+#das projekt ist voll
