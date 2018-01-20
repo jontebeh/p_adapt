@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+import variables as var
 
 def get_html_code(source_link):
     response = urlopen(source_link)
@@ -15,24 +16,22 @@ def p_to_p(source_code):
     except:
         return "",""
 
-def del_scribt(p_to_p_text):
+def del_script(p_to_p_text, begin, end):
     while True:
         try:
-            begin_index = p_to_p_text.index('<')
-            end_index = p_to_p_text.index('>')
-            p_to_p_text = p_to_p_text[:begin_index] + p_to_p_text[end_index + 1:]
+            begin_index = p_to_p_text.index(begin)
+            end_index = p_to_p_text.index(end)
+            p_to_p_text = p_to_p_text[:begin_index] + p_to_p_text[end_index + len(begin):]
         except:
             break
     return p_to_p_text
 
-def str_replace(main_str, search_for, replace_with):
-    new_str = ""
-    while True:
-        try:
-            search_index = main_str.index(search_for)
-            new_str = new_str + main_str[:search_index] + replace_with
-            main_str = main_str[search_index + len(search_for):]
-        except:
-            new_str += main_str
-            break
-    return new_str
+def del_in_script(p_to_p_text):
+    for sub_del in var.del_str:
+        p_to_p_text = del_script(p_to_p_text, sub_del[0], sub_del[1])
+    return p_to_p_text
+
+def replace_script(p_to_p_text):
+    for sub_repl in var.replace_str:
+        p_to_p_text = p_to_p_text.replace(sub_repl[0], sub_repl[1])
+    return p_to_p_text
