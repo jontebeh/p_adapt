@@ -73,5 +73,3 @@ def write_word_script(word, w_c, s_b, s_e, n_w_list):
     n_w_script += '</nw>'
     end_script = word_script+w_c_sript+s_b_sript+s_e_sript+n_w_script
     return end_script
- 
-             
